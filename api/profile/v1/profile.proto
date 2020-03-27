@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package api.profile.v1;
+
+option go_package = "profile";
+
+import "google/api/annotations.proto";
+import "profile/v1/types.proto";
+
+service ProfileService {
+  rpc CreateProfile(CreateProfileRequest) returns (CreateProfileResponse) {
+    option (google.api.http) = {
+      post: "/v1/profile/create",
+    };
+  }
+}
+
+message Empty {}
+
+message Body {
+  bytes payload = 1;
+}
+
+message CreateProfileRequest {
+  string account_id = 1;
+  string name = 2;
+  int64 date_of_birth = 3;
+  Biography biography = 4;
+  ProfileImages images = 5;
+}
+
+message CreateProfileResponse {
+  string profile_id = 1;
+  string name = 2;
+}
